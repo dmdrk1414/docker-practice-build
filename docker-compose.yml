@@ -1,0 +1,17 @@
+version: '3'
+services:
+  frontend:
+    build: ./frontend
+    # 연결할 외부 디렉토리 : 컨테이너 내 디렉토리
+    volumes:
+      - ./frontend:/home/node/next
+    ports:
+      - "3000:3000"
+  nginx:
+    # Dockerfile이 있는 위치
+    build: ./nginx
+    ports:
+      - "80:80"
+    # depends_on은 설정 서비스 명이 frontend이 먼저 실행된 후, 실행하는 부분이다.
+    depends_on:
+      - frontend
