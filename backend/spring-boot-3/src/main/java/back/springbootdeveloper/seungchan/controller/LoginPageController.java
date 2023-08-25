@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @ResponseBody
+@RequestMapping("/api")
 public class LoginPageController {
     private final UserService userService;
     private final TempUserService tempUserService;

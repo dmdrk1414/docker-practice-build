@@ -1,17 +1,35 @@
+# practice-build/docker-compose.yml
 version: '3'
 services:
   frontend:
     build: ./frontend
+    #컨테이너 다운 시 재시작하라는 명령어
+    restart: always
     # 연결할 외부 디렉토리 : 컨테이너 내 디렉토리
     volumes:
       - ./frontend:/home/node/next
     ports:
       - "3000:3000"
+
+  spring-boot:
+    # Dockerfile이 있는 위치
+    build: ./backend/spring-boot-3
+    #컨테이너 다운 시 재시작하라는 명령어
+    restart: always
+    # 불룸 로컬과 도커 마운트 설정
+    # volumes:
+    #   - ./backend/spring-boot-3/build/libs:/home/spring-boot-3/build
+    ports:
+      - "8080:8080"
+
   nginx:
     # Dockerfile이 있는 위치
     build: ./nginx
+    #컨테이너 다운 시 재시작하라는 명령어
+    restart: always
     ports:
       - "80:80"
     # depends_on은 설정 서비스 명이 frontend이 먼저 실행된 후, 실행하는 부분이다.
     depends_on:
       - frontend
+      - spring-boot
