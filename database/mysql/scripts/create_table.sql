@@ -1,0 +1,22 @@
+CREATE TABLE user (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    phoneNum VARCHAR(255) NOT NULL,
+    major VARCHAR(255) NOT NULL,
+    gpa VARCHAR(255) NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    specialtySkill VARCHAR(255) NOT NULL,
+    hobby VARCHAR(255) NOT NULL,
+    mbti VARCHAR(255) NOT NULL,
+    studentId VARCHAR(255) NOT NULL,
+    birthDate VARCHAR(1000) NOT NULL,
+    advantages VARCHAR(1000) NOT NULL,
+    disadvantage VARCHAR(1000) NOT NULL,
+    selfIntroduction VARCHAR(1000) NOT NULL,
+    photo VARCHAR(5000) NOT NULL,
+    is_ob BOOLEAN NOT NULL,
+    year_registration VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    regular_member BOOLEAN NOT NULL
+);
