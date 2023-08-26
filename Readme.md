@@ -6,23 +6,17 @@
 
 # 🗒️ 목차
 
-## 1. [폴더 구조 (중요하니 꼼꼼하게 보세요.)](#1-폴더-구조)
+## [1. 폴더 구조 (중요하니 꼼꼼하게 보세요.)](#1-폴더-구조)
 
-## 2. [배포 구상도 (전체적인 그림)](#🖌️ 2. 배포 구상도 (전체적인 그림))
+## [2. 배포 구상도 (전체적인 그림)](#2-배포-구상도-(전체적인 그림))
 
-## 3. Docker-compose 명령어
+## [3. Docker-compose 명령어](#3-docker-compose-명령어)
 
-## 4. frontend : conection [ docker-nginx   <-> docker-next.js ] include docker compose
+## [4. frontend : conection [ docker-nginx   <-> docker-next.js ] include docker compose](#4-Frontend:nextjs-:-conection-[-docker-nginx-<->-docker-next.js-]-include-docker-compose)
 
-https://github.com/dmdrk1414/docker-practice-build/commit/49ecc6f4a1fa9be51007b98b990e40b5809da111
+## [5. backend : conection [ docker-nginx   <-> docker-spring boot 3 ] include docker compose](#5-backend-:-conection-[-docker-nginx-<->-docker-spring-boot-3-]-include-docker-compose)
 
-## 5. backend : conection [ docker-nginx   <-> docker-spring boot 3 ] include docker compose
-
-https://github.com/dmdrk1414/docker-practice-build/commit/f7fb846cd5ce2de0e4def1074759b06417fc7605
-
-## 6. Database:mysql : conection [ docker-spring boot 3   <-> docker-mysql ] 
-
-https://github.com/dmdrk1414/docker-practice-build/commit/da4a2d71d331d3a06e8dd7da97d88aa2454ded94
+## [6. Database:mysql : conection [ docker-spring boot 3   <-> docker-mysql] ](#6-Database:mysql-:-conection-[-docker-spring-boot-3-<->-docker-mysql] )
 
 
 
@@ -48,11 +42,49 @@ https://github.com/dmdrk1414/docker-practice-build/commit/da4a2d71d331d3a06e8dd7
 
 
 
-# 🖌️ 2. 배포 구상도 (전체적인 그림)
+# 2. 배포 구상도 (전체적인 그림)
 
 <img src="/Users/seungchan/Library/Application Support/typora-user-images/image-20230826230246643.png" alt="image-20230826230246643" style="zoom:80%;" />
 
-# 4. Frontend:nextjs : conection [ docker-nginx   <-> docker-next.js ] include docker compose
+# 3. Docker compose 명령어
+
+### **여러 컨테이너 시작/정지/재시작(start/stop/restart)**
+
+```
+# docker compose을 실행 
+# container 생성과 container의 실행을한다.
+docker compose up
+
+# docker compose을 실행을 하되 변경된 compose service(container) 만 다시 실행됩니다.
+docker compose up --build. 
+
+# docker compose을 실행
+docker compose start
+
+# docker compose을 중지
+docker compose stop
+
+# docker compose을 삭제
+docker compose down
+```
+
+| up      | 컨테이너 생성/시작           |
+| ------- | ---------------------------- |
+| ps      | 컨테이너 목록 표시           |
+| logs    | 컨테이너 로그 출력           |
+| run     | 컨테이너 실행                |
+| start   | 컨테이너 시작                |
+| stop    | 컨테이너 정지                |
+| restart | 컨테이너 재시작              |
+| pause   | 컨테이너 일시 정지           |
+| unpause | 컨테이너 재개                |
+| port    | 공개 포트 표시               |
+| config  | 구성 확인                    |
+| kill    | 실행 중인 컨테이너 강제 정지 |
+| rm      | 컨테이너 삭제                |
+| down    | 리소스 삭제                  |
+
+# 4. Frontend:nextjs : conection [ docker-nginx <-> docker-next.js ] include docker compose
 
 1. **준비 사항**
 2. **frontend Dockerfile 파일 설정**
@@ -237,7 +269,7 @@ docker compose down
 
 
 
-# 4. backend : conection [ docker-nginx   <-> docker-spring boot 3 ] include docker compose
+# 5. backend : conection [ docker-nginx <-> docker-spring boot 3 ] include docker compose
 
 1. **준비 사항**
 2. **Dockerfile 파일 설정**
@@ -246,7 +278,7 @@ docker compose down
 
 
 
-# 5. Database:mysql : conection [ docker-spring boot 3   <-> docker-mysql ] 
+# 6. Database:mysql : conection [ docker-spring boot 3 <-> docker-mysql] 
 
 1. **준비 사항**
 2. **Dockerfile 파일 설정**
