@@ -186,7 +186,7 @@ services:
       - spring-boot-3
 ```
 
-## 4.4 Nginx의 config 파일 만들기
+## 4.4 nextjs의 Nginx의 config 파일 만들기
 
 ```
 # /nginx/nginx.conf
@@ -195,7 +195,12 @@ upstream frontend {
     # 사용시 변경 향후 컨테이너이름:포트번호
     # max_fails 3;은 3번의 연속 실패 후에 서버를 '망가진' 상태로 표시합니다.
     # fail_timeout 10s;는 서버가 실패한 후 10초 동안 망가진 상태로 유지되며, 이 기간 동안 추가 연결 시도가 거부됩니다.
-    server practice-build-frontend-1:3000 max_fails=3 fail_timeout=10s; 
+    server practice-build-nextjs-1:3000 max_fails=3 fail_timeout=10s; 
+}
+
+upstream backend {
+    # 사용시 변경 컨테이너이름:포트번호
+    server practice-build-spring-boot-3-1:8080 max_fails=3 fail_timeout=10s;
 }
 
 server {
@@ -236,6 +241,8 @@ server {
 ## 4.5 Nginx의 Dockerfile 만들기
 
 ```
+# nginx/Dockerfile
+
 # docker container의 바탕이 되는 image의 이름이다.
 FROM nginx:latest
 
@@ -308,6 +315,20 @@ Spring-boot의 시작폴더에서 (docker 파일의 기준, 또는 spring boot�
 
 나중에 `./build/libs` 폴더는 docker-compose 단계에서 container와 연결을 해줄것이다.
 
+
+
+3. 또한 build.gradle 파일에 추가를 하자
+
+```
+bootJar {
+    archivesBaseName = 'app'
+    archiveFileName = 'app.jar'
+    archiveVersion = "0.0.0"
+}
+```
+
+
+
 ## 5.2 backend springboot-3 Dockerfile 파일 설정
 
 ```python
@@ -319,7 +340,7 @@ FROM amazoncorretto:17
 WORKDIR /home/spring-boot-3/build
 
 # java build 파일 jar파일 복사
-ADD ./build/libs/*.jar app.jar
+COPY ./build/libs/*.jar app.jar
 
 # 8080 포트 오픈
 EXPOSE 8080
@@ -381,19 +402,6 @@ services:
     depends_on:
       - nextjs
       - spring-boot-3
-
-  mysql:   
-    # Dockerfile이 있는 위치
-    build: ./database/mysql
-    # build: ./database/mysql
-    restart: always 
-    # 연결할 외부 디렉토리 : 컨테이너 내 디렉토리
-    #  호스트 머신의 3306번 포트와 컨테이너의 33060번 포트를 매핑합니다. 
-    ports: 
-      - "3306:3306"
-    # 테이블 이름 소문자로 맞춘다.
-    volumes:
-      - ./database/mysql/scripts:/docker-entrypoint-initdb.d
 ```
 
 
@@ -407,12 +415,12 @@ upstream frontend {
     # 사용시 변경 향후 컨테이너이름:포트번호
     # max_fails 3;은 3번의 연속 실패 후에 서버를 '망가진' 상태로 표시합니다.
     # fail_timeout 10s;는 서버가 실패한 후 10초 동안 망가진 상태로 유지되며, 이 기간 동안 추가 연결 시도가 거부됩니다.
-    server practice-build-frontend-1:3000 max_fails=3 fail_timeout=10s; 
+    server practice-build-nextjs-1:3000 max_fails=3 fail_timeout=10s; 
 }
 
 upstream backend {
     # 사용시 변경 컨테이너이름:포트번호
-    server practice-build-spring-boot-1:8080 max_fails=3 fail_timeout=10s;
+    server practice-build-spring-boot-3-1:8080 max_fails=3 fail_timeout=10s;
 }
 
 server {
@@ -498,6 +506,8 @@ server {
 ## 5.5 Nginx의 Dockerfile 만들기
 
 ```
+# nginx/Dockerfile
+
 # docker container의 바탕이 되는 image의 이름이다.
 FROM nginx:latest
 
@@ -623,11 +633,11 @@ ENV MYSQL_DATABASE=nct-db
 ENV MYSQL_ROOT_HOST=root
 ENV TZ=Asia/Seoul
 
+# Docker 이미지를 빌드할 때 파일이 컨테이너 내에 복사됩니다.
 # 초기 디비 구성 
 COPY ./scripts/ /docker-entrypoint-initdb.d/
 
-# 테이블 이름 소문자로 설정
-
+# 명령은 컨테이너가 시작될 때 실행됩니다.
 CMD ["mysqld", "--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
 
 # 컨테이너 포트 설정

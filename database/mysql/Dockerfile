@@ -9,7 +9,6 @@ ENV MYSQL_ROOT_HOST=root
 ENV TZ=Asia/Seoul
 
 # Docker 이미지를 빌드할 때 파일이 컨테이너 내에 복사됩니다.
-# 현재 폴더 (docker file)이 있는 파일의 전체를 (frontend)폴더을 컨테이너 WORKDIR의 안에 복사를 한다.
 # 초기 디비 구성 
 COPY ./scripts/ /docker-entrypoint-initdb.d/
 
