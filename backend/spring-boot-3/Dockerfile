@@ -1,3 +1,4 @@
+# backend/spring-boot-3/Dockerfile
 # 지금 사용중인 이미지 이름
 FROM amazoncorretto:17
 
