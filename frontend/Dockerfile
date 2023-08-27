@@ -1,3 +1,5 @@
+# frontend/Dockerfile
+
 # docker container의 바탕이 되는 image의 이름이다.
 # alpine은 Alpine Linux는 매우 작고 경량화된 배포판
 FROM node:16.18.0-alpine

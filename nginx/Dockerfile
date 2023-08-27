@@ -1,3 +1,5 @@
+# nginx/Dockerfile
+
 # docker container의 바탕이 되는 image의 이름이다.
 FROM nginx:latest
 

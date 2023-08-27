@@ -6,7 +6,7 @@ FROM amazoncorretto:17
 WORKDIR /home/spring-boot-3/build
 
 # java build 파일 jar파일 복사
-ADD ./build/libs/*.jar app.jar
+COPY ./build/libs/*.jar app.jar
 
 # 8080 포트 오픈
 EXPOSE 8080
