@@ -7,6 +7,7 @@ version: '3'
 services:
   # nextjs의 서비스 정의
   nextjs:
+    container_name: nextjs
     build: ./frontend
     #컨테이너 다운 시 재시작하라는 명령어
     restart: always
@@ -20,6 +21,7 @@ services:
       - "3000:3000"
 
   spring-boot-3:
+    container_name: spring-boot-3
     # Dockerfile이 있는 위치
     build: ./backend/spring-boot-3
     #컨테이너 다운 시 재시작하라는 명령어
@@ -45,6 +47,7 @@ services:
       SPRING_DATASOURCE_PASSWORD: "1234"
 
   nginx:
+    container_name: nginx
     # Dockerfile이 있는 위치
     build: ./nginx
     #컨테이너 다운 시 재시작하라는 명령어
@@ -59,6 +62,7 @@ services:
       - spring-boot-3
 
   mysql:   
+    container_name: mysql
     # Dockerfile이 있는 위치
     build: ./database/mysql
     # build: ./database/mysql
