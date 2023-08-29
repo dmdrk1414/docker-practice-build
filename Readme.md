@@ -785,7 +785,7 @@ select Host,User,plugin,authentication_string FROM mysql.user;
 
 ```python
 **create user 'root'@'%' identified by '비밀번호';
-create user 'root'@'%' identified by '1234';**
+create user 'root'@'%' identified by '1234';
 ```
 
 **모든 IP 허용**
@@ -793,5 +793,5 @@ create user 'root'@'%' identified by '1234';**
 ------
 
 ```java
-GRANT ALL PRIVILEGES ON *.* TO 'root'@'%'
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%';
 ```
